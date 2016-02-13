@@ -1,0 +1,11 @@
+{
+  "name": "redux-saga-rxjs",
+  "version": "0.1.0",
+  "description": "Saga pattern for Redux implemented using rxjs",
+  "main": "index.js",
+  "author": "Tomas Weiss <tomas.weiss2@gmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "rxjs": "^5.0.0-beta.2"
+  }
+}

@@ -31,4 +31,13 @@ describe('SagaMiddleware test', () => {
       assert.equal(ex.message, 'Invariant violation: All the provided sagas must be typeof function');
     }
   });
+
+  it('should throw an invariant when no argument is provided', () => {
+    try {
+      sagaMiddleware();
+      assert.isTrue(false);
+    } catch (ex) {
+      assert.equal(ex.message, 'Invariant violation: Provide at least one saga as argument');
+    }
+  });
 });

@@ -11,6 +11,9 @@ const invariant = (condition, message) => {
 export default (...sagas) => {
   const subject = new Subject();
 
+  invariant(sagas.length === 0,
+    'Provide at least one saga as argument');
+
   invariant(!sagas.every(isFunction),
       'All the provided sagas must be typeof function');
 

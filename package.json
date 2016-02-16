@@ -1,6 +1,6 @@
 {
   "name": "redux-saga-rxjs",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "description": "Saga pattern for Redux implemented using rxjs",
   "main": "lib/index.js",
   "files": [

@@ -25,7 +25,7 @@ const LOG_OUT_ACTIONS_ORDER = [
 ];
 
 // User clicked the log in button,
-// call the API and respond either success or failure
+// call the API and respond with either success or failure
 const authGetTokenSaga = iterable => iterable
   .filter(actionPredicate([Actions.LOG_IN]))
   .flatMap(({ action }) => Observable
@@ -35,8 +35,7 @@ const authGetTokenSaga = iterable => iterable
 
 // After the user is successfuly logged in,
 // let's schedule an infinite interval stream
-// which can be interrupted either by LOG_OUT
-// or failure in refreshing (TOKEN_REFRESHING_FAILED)
+// which can be interrupted by LOG_OUT action
 const authRefreshTokenSaga = iterable => iterable
   .filter(actionPredicate([Actions.LOGGED_IN]))
   .flatMap(({ action }) => Observable
@@ -56,6 +55,10 @@ const authHandleLogOutSaga = iterable => iterable
   .filter(actions => actionOrder(actions, LOG_OUT_ACTIONS_ORDER))
   .map(() => ActionCreators.logOut());
 
+// After LOG_IN_FAILURE kicks-in, start a race
+// between 5000ms delay and CHANGE_CREDENTIALS action,
+// meaning that either timeout or changing credentials
+// hides the toast
 const authShowLogInFailureToast = iterable => iterable
   .filter(actionPredicate([Actions.LOG_IN_FAILURE]))
   .flatMap(() =>
@@ -65,6 +68,7 @@ const authShowLogInFailureToast = iterable => iterable
     )
     .map(() => ActionCreators.hideToast()));
 
+// Just merge all the sub-sagas into one sream
 export default iterable => Observable.merge(
   authGetTokenSaga(iterable),
   authRefreshTokenSaga(iterable),

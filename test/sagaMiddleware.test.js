@@ -40,4 +40,15 @@ describe('SagaMiddleware test', () => {
       assert.equal(ex.message, 'Invariant violation: Provide at least one saga as argument');
     }
   });
+
+  it('should not allow to accept identity saga', () => {
+    const identitySaga = iterable => iterable;
+
+    try {
+      applyMiddleware(sagaMiddleware(identitySaga))(createStore)(appState => appState);
+      assert.isTrue(false);
+    } catch (ex) {
+      assert.equal(ex.message, 'Invariant violation: It is not allowed to provide identity (empty) saga');
+    }
+  });
 });

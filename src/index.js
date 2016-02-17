@@ -18,9 +18,14 @@ export default (...sagas) => {
       'All the provided sagas must be typeof function');
 
   return store => {
-    sagas.forEach(saga =>
-        saga(subject)
-          .subscribe(dispatchable => store.dispatch(dispatchable)));
+    sagas.forEach(saga => {
+      const iterable = saga(subject);
+
+      invariant(iterable === subject,
+        'It is not allowed to provide identity (empty) saga');
+
+      iterable.subscribe(dispatchable => store.dispatch(dispatchable));
+    });
 
     return next => action => {
       next(action);

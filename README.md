@@ -40,7 +40,7 @@ const store = storeFactory(identityReducer);
 ```
   npm install
   npm run test:watch
-``
+```
 
 
 [npm-image]: https://img.shields.io/npm/v/redux-saga-rxjs.svg?style=flat-square

@@ -9,6 +9,8 @@ redux-saga-rxjs
 
 > RxJS implementation of [Saga pattern](https://www.youtube.com/watch?v=xDuwrtwYHu8) for [redux](https://github.com/reactjs/redux)
 
+# Work In Progress
+
 ## Usage
 
 Install the package via `npm` - `npm install redux-saga-rxjs --save`. Package exposes single middleware to be used in your Redux application. The middleware takes Sagas as its arguments.

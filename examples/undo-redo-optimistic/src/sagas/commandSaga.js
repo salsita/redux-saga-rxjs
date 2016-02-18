@@ -64,6 +64,7 @@ const redoSaga = iterable => iterable
   .flatMap(({ action }) => Observable.merge(
       Observable.of(action.payload),
       iterable
+        .filter(actionPredicate([Actions.TODO_ADDED, Actions.ADD_TODO_FAILED]))
         .take(1)
         .filter(actionPredicate([Actions.TODO_ADDED]))
         .map(() => ActionCreators.redone())
@@ -75,6 +76,7 @@ const redoSaga = iterable => iterable
 const clearRedoLogSaga = iterable => iterable
   .filter(actionPredicate([Actions.ADD_TODO]))
   .flatMap(() => iterable
+    .filter(actionPredicate([Actions.TODO_ADDED, Actions.ADD_TODO_FAILED]))
     .take(1)
     .filter(actionPredicate([Actions.TODO_ADDED]))
     .map(() => ActionCreators.clearRedoLog()));

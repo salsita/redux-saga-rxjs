@@ -50,7 +50,7 @@ const reducer = (appState, { type }) {
 }
 ```
 
-However, using Saga we don't need to store the intermediate state in the application state and reducers because all this lives in Saga. **The reducer would be just a simple projection of your Domain Events (Actions)**.
+However, using Saga we don't need to store the intermediate state in the application state and reducers because all this lives in Saga. **The reducer would be just a simple projector of your Domain Events (Actions), where the projection is application state**.
 
 ```javascript
 const reducer = (appState, { type }) {

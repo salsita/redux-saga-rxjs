@@ -32,7 +32,7 @@ const view = dispatch => (
 
 ```
 
-The example above is something we could call long running transaction, in other words it some kind of logic group which spans more than single Action. Long running transactions does not necessarily need to be Asynchronous, in this example the long running transaction is also asynchronous because those actions are not dispatched synchronously in sequence.
+The example above is something we could call long running transaction, in other words it's some kind of logic group which groups more than single Action. Long running transactions does not necessarily need to be Asynchronous, in this example the long running transaction is also asynchronous because those actions are not dispatched synchronously in sequence.
 
 
 ```javascript
@@ -111,6 +111,8 @@ const reducer = (appState, { type }) {
 So why people say that Saga is a great pattern for Side effects? Let's take an API call as example - you'll probably have one action (`API_REQUESTED`) dispatched when user clicks the button to load data, which presumably displays loading spinner and another action to process the response (`API_FINISHED`) and this is all in single, long running transaction which Saga can handle.
 
 We need to distinguish between Side effects and Asynchronous long running transaction. The former stands for some effect which is not the primary goal of the calling function (mutation of some external state / calling XHR / logging to console...) while the latter stands for asynchronous sequence of actions which is some logical group (transaction). Saga solves the latter, it's just an implementation detail that it's capable of solving side effects. We could still say that it should be forbidden to perform side effects in Sagas as it is in Reducers - just a minor implementation detail.
+
+### Difference between redux-saga-rxjs and redux-saga
 
 ## Usage
 

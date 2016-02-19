@@ -13,7 +13,40 @@ redux-saga-rxjs
 
 ## Introduction
 
-### Redux is great, asynchronous transactions are problematic
+### Redux is great, long running transactions are problematic
+Redux gives us great power but with great power comes great responsibility. It's possible to build amazing, extensible, robust and scalable architecture, yet it's not as easy as it looks, because there are some unknowns which hasn't been fully solved and proven e.g. Local component State / Side effects / Long running transactions etc. One common problem that probably every developer will sooner or later have to face is communication with an API.
+
+Reading through the Redux docs will guide you to use [`thunk-middleware`](https://github.com/gaearon/redux-thunk). Thunk middleware allows you to dispatch `function` instead of `object`, this is cool because the `function` gets called providing `dispatch` and `getState` as arguments, therefore it allows you to call the API inside the function and dispatch an action holding payload when API response arrives - this is an asynchronous operation.
+
+```javascript
+
+const apiAction = (dispatch, getState) => {
+  dispatch({type: 'STARTED_LOADING_DATA'});
+
+  api().then(response => dispatch({type: 'DATA_LOADED', response}));
+}
+
+const view = dispatch => (
+  <button dispatch={() => dispatch(apiAction)}>Click to Load data</button>
+);
+
+```
+
+The example above is something we could call long running transaction, in other words it some kind of logic group which spans more than single Action. Long running transactions does not necessarily need to be Asynchronous, in this example the long running transaction is also asynchronous because those actions are not dispatched synchronously in sequence.
+
+
+```javascript
+const synchronousLongRunningTransaction = (dispatch, getState) => {
+  dispatch({type: 'FOO'});
+
+  if (getState().foo === 1) {
+    dispatch({type: 'BAR'});
+  }
+}
+```
+
+The example above is also a long running transaction yet it's not asynchronous and does not yield any side effects.
+
 
 ### What is Saga pattern?
 Saga is a pattern for orchestrating long running transactions... TODO
@@ -71,11 +104,13 @@ const reducer = (appState, { type }) {
 }
 ```
 
+### Is thunk-middleware Saga pattern?
+
 ### What's the relation between Saga pattern and Side effects?
 
-So why people say that Saga is a great pattern for Side effects? Let's take an API call as example - you'll probably have one action (`API_REQUESTED`) dispatched when user clicks the button to load data, which presumably displays loading spinner and another action to process the response (`API_FINISHED`) and this is all in single, long running asynchronous transaction which Saga can handle.
+So why people say that Saga is a great pattern for Side effects? Let's take an API call as example - you'll probably have one action (`API_REQUESTED`) dispatched when user clicks the button to load data, which presumably displays loading spinner and another action to process the response (`API_FINISHED`) and this is all in single, long running transaction which Saga can handle.
 
-We need to distinguish between Side effects and Asynchronous transaction. The former stands for some effect which is not the primary goal of the calling function (mutation of some external state / calling XHR / logging to console...) while the latter stands for asynchronous sequence of actions which is some logical group (transaction). Saga solves the latter, it's just an implementation detail that it's capable of solving side effects. We could still say that it should be forbidden to perform side effects in Sagas as it is in Reducers - just a minor implementation detail.
+We need to distinguish between Side effects and Asynchronous long running transaction. The former stands for some effect which is not the primary goal of the calling function (mutation of some external state / calling XHR / logging to console...) while the latter stands for asynchronous sequence of actions which is some logical group (transaction). Saga solves the latter, it's just an implementation detail that it's capable of solving side effects. We could still say that it should be forbidden to perform side effects in Sagas as it is in Reducers - just a minor implementation detail.
 
 ## Usage
 

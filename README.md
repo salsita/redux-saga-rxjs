@@ -71,6 +71,8 @@ const reducer = (appState, { type }) {
 }
 ```
 
+### What's the relation between Saga pattern and Side effects?
+
 So why people say that Saga is a great pattern for Side effects? API call is a good example of side effect - you'll probably have one action (`API_REQUESTED`) dispatched when user clicks the button to load data which presumably display loading spinner and another action to process the response (`API_FINISHED`) and this is all in single long running transaction which Saga can handle.
 
 

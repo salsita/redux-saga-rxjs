@@ -15,14 +15,16 @@ redux-saga-rxjs
 Saga is a pattern for orchestrating long running transactions... TODO
 
 ## Why is Saga good and probably mandatory for Redux?
-Redux is just predictable state container. We can say that all it does (and it does very well) is holding refrence of your application state and providing interface to mutate it (dispatching actions). Whenever any action (interaction with the UI) is dispatched, the reducer is called with provided application state and action to perform the mutation. The simplest model of Redux is State Machine because it defines two concepts: States and Transitions where in context of Redux - States are references to application state snapshot in specific time and Transitions are Actions.
+Redux is just predictable state container. We can say that all it does (and it does very well) is holding refrence of your application state and providing interface to mutate it (dispatching actions) in single transaction. Whenever any action (interaction with the UI) is dispatched, the reducer is called with provided application state and action to perform the mutation. The simplest model of Redux is State Machine because it defines two concepts: States and Transitions where in context of Redux - States are references to application state snapshot in specific time and Transitions are Actions.
 
 State Machine is missing one important piece and it's the transition history. State machine knows current state but it doesn't know anything about how it got to the state, it's missing **Sequence of transitions**. However, the Sequence of transitions is often very important information. Let's imagine you want to withdraw money from ATM, the first thing you need to do is enter your credit card and then enter the PIN. So the sequence of transitions could be as follows: `WAITING_FOR_CREDIT_CARD` -> `CARD_INSERTED` -> `AUTHORIZED` or `REJECTED` but we would like to allow user enter invalid PIN 3 times before rejecting.
 
 So first naive approach would be model of State machine which covers all the possible states and transitions between them:
+
 ![atm-1](./docs/atm_1.png)
 
 As you can see, for simple use case the State machine is quite complex, now let's have a look at the State machine which would probably correspond with the way you'd implemented it in Redux.
+
 ![atm-2](./docs/atm_2.png)
 
 You might have spotted something ugly in the diagram and it's the counter of attempts in the form of intermediate state. Yes, in traditional Redux you'd have to keep the information in your application state because State Machine does not allow you to keep track of transitions history. And that's exactly the point where Saga comes into play.

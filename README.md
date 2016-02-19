@@ -67,7 +67,7 @@ const reducer = (appState, { type }) {
 }
 ```
 
-So why people keep saying that Saga is good for Side effects? Let's just take API call as a good example of side effect. When you want to call an API you probably want to have three actions `API_REQUESTED`, `API_SUCCEEDED`, `API_FAILED` and now you can imagine this as the **long running transaction** because it **lives in time** (long running) and you need to connect the Request with Response (transaction).
+So why people keep saying that Saga is good for Side effects? Let's just take API call as a good example of side effect. When you want to call an API you probably want to have three actions `API_REQUESTED`, `API_SUCCEEDED`, `API_FAILED` and now you can imagine this as the **long running transaction** because it's a **sequence of actions which live in time** (long running) and you need to connect the Request with Response (transaction).
 
 
 ## Usage

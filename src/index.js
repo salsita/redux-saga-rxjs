@@ -28,8 +28,9 @@ export default (...sagas) => {
     });
 
     return next => action => {
-      next(action);
+      const result = next(action);
       subject.next({action, state: store.getState()});
+      return result;
     };
   };
 };

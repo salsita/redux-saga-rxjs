@@ -51,4 +51,18 @@ describe('SagaMiddleware test', () => {
       assert.equal(ex.message, 'Invariant violation: It is not allowed to provide identity (empty) saga');
     }
   });
+
+  it('should pass the action down the middleware chain', () => {
+    const saga = iterable => iterable
+      .filter(({ action }) => action.type === 'FOO')
+      .map(() => ({type: 'BAR'}));
+
+    const identity = input => input;
+    const store = { getState: identity, dispatch: identity };
+    const action = { type: 'FOO' };
+    
+    const result = sagaMiddleware(saga)(store)(identity)(action)
+
+    assert.equal(result, action);
+  });
 });

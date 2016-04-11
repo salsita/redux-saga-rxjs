@@ -104,7 +104,11 @@ const reducer = (appState, { type }) {
 }
 ```
 
+## Comparison
+
 ### Is thunk-middleware Saga pattern?
+
+[...TODO]
 
 ### What's the relation between Saga pattern and Side effects?
 
@@ -113,6 +117,8 @@ So why people say that Saga is a great pattern for Side effects? Let's take an A
 We need to distinguish between Side effects and Asynchronous long running transaction. The former stands for some effect which is not the primary goal of the calling function (mutation of some external state / calling XHR / logging to console...) while the latter stands for asynchronous sequence of actions which is some logical group (transaction). Saga solves the latter, it's just an implementation detail that it's capable of solving side effects. We could still say that it should be forbidden to perform side effects in Sagas as it is in Reducers - just a minor implementation detail.
 
 ### Difference between redux-saga-rxjs and redux-saga
+
+[...TODO]
 
 ## Usage
 

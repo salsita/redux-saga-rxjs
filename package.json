@@ -34,6 +34,10 @@
   "bugs": {
     "url": "https://github.com/tomkis1/redux-saga-rxjs/issues"
   },
+  "engines": {
+    "node": ">=5.0.0",
+    "npm": ">=3.0.0"
+  },
   "homepage": "https://github.com/tomkis1/redux-saga-rxjs#readme",
   "peerDependencies": {
     "rxjs": "^5.0.0-beta.2"

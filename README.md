@@ -9,7 +9,7 @@ redux-saga-rxjs
 
 > RxJS implementation of [Saga pattern](https://www.youtube.com/watch?v=xDuwrtwYHu8) for [redux](https://github.com/reactjs/redux)
 
-# Work In Progress...
+# This project is no longer updated and mantained, it was intended as proof of concept, there is a real library with awesome documentation & API, please have a look at [redux-observable](https://github.com/redux-observable/redux-observable).
 
 ## Introduction
 
